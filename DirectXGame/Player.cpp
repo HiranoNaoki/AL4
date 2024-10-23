@@ -1,4 +1,5 @@
 #include "Player.h"
+#include "MathUtilityForText.h"
 #include <cassert>
 
 void Player::Intialize(Model* model, uint32_t textureHandle){
@@ -17,6 +18,7 @@ void Player::Draw(ViewProjection& viewProjection){
 }
 
 void Player::Update(){
+
 	worldTransform_.TransferMatrix();
 
 	Vector3 move = {0,0,0};
@@ -38,4 +40,6 @@ void Player::Update(){
 	}
 
 	worldTransform_.translation_ += move;
+
+	worldTransformBlock
 }
