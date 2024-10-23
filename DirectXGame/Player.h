@@ -1,5 +1,6 @@
 #include <Model.h>
 #include <WorldTransform.h>
+#include <Input.h>
 
 #pragma once
 class Player {
@@ -21,5 +22,7 @@ class Player {
 		Model* model_ = nullptr;
 
 		uint32_t textureHandle_ = 0u;
+
+		Input* input_ =  nullptr;
 		
 };
