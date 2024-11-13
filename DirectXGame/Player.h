@@ -1,6 +1,8 @@
 #include <Model.h>
 #include <WorldTransform.h>
 #include <Input.h>
+#include "Affine.h"
+#include "MathUtilityForText.h"
 
 #pragma once
 class Player {
@@ -24,5 +26,7 @@ class Player {
 		uint32_t textureHandle_ = 0u;
 
 		Input* input_ =  nullptr;
+
+		WorldTransform* worldTransformBlock = nullptr;
 		
 };
