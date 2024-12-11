@@ -33,5 +33,6 @@ float Lerp(float x1, float x2, float t);
 Vector3 Leap(const Vector3& v1, const Vector3& v2, float t);
 
 
+Vector3 TransformNormal(const Vector3& v, const Matrix4x4& m);
 
 Matrix4x4 PlayerAffineMatrix(const Vector3& scale, const Vector3& rotate, const Vector3& translate);

@@ -25,7 +25,13 @@ void Player::Draw(ViewProjection& viewProjection){
 
 void Player::Update(){
 
-	
+	bullets_.remove_if([](PlayerBullet* bullet) {
+		if (bullet->IsDead()) {
+			delete bullet;
+			return true;
+		}
+		return false;
+	});
 
 	Vector3 move = {0,0,0};
 
@@ -78,11 +84,13 @@ void Player::Update(){
 void Player::Attack(){
 	if (input_->PushKey(DIK_RETURN)) {
 
-
+		const float kBulletSpeed = 1.0f;
+		Vector3 velocity(0,0,kBulletSpeed);
 		
+		velocity = TransformNormal(velocity,worldTransform_.matWorld_);
 
 		PlayerBullet* newBullet = new PlayerBullet();
-		newBullet->Intialize(model_,worldTransform_.translation_);
+		newBullet->Intialize(model_,worldTransform_.translation_,velocity);
 
 		
 
