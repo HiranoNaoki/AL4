@@ -4,6 +4,7 @@
 #include "Affine.h"
 #include "MathUtilityForText.h"
 #include "PlayerBullet.h"
+#include <list>
 
 #pragma once
 class Player {
@@ -19,6 +20,8 @@ class Player {
 
 		void Attack();
 
+		~Player();
+
 	private:
 
 		WorldTransform worldTransform_;
@@ -31,5 +34,7 @@ class Player {
 
 		WorldTransform* worldTransformBlock = nullptr;
 		
-		PlayerBullet* bullet_ = nullptr;
+		
+
+		std::list<PlayerBullet*> bullets_;
 };
