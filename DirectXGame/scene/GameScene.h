@@ -9,6 +9,8 @@
 #include "WorldTransform.h"
 #include"Player.h"
 #include "DebugCamera.h"
+#include "MathUtilityForText.h"
+#include <Enemy.h>
 
 /// <summary>
 /// ゲームシーン
@@ -41,6 +43,15 @@ public: // メンバ関数
 	/// </summary>
 	void Draw();
 
+		Model* model_ = nullptr;
+
+		Model* modelEnemy_ = nullptr;
+
+		WorldTransform worldTransform_;
+		
+	ViewProjection viewProjection_;
+
+
 private: // メンバ変数
 	DirectXCommon* dxCommon_ = nullptr;
 	Input* input_ = nullptr;
@@ -48,11 +59,14 @@ private: // メンバ変数
 
 	uint32_t textureHandle_ = 0;
 
-	Model* model_ = nullptr;
+	uint32_t textureHandleEne_ = 0;
 
-	ViewProjection viewProjection_;
+
+
 
 	Player* player_ = nullptr;
+
+	Enemy* enemy_ = nullptr;
 
 	bool isDebugCameraActive_ = false;
 
