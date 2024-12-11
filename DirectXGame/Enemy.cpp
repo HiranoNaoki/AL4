@@ -32,6 +32,7 @@ void Enemy::Update(){
 
 	worldTransform_.TransferMatrix();
 
+
 	/*const float kMoveLimitX = 34;
 	const float kMoveLimitY = 18;
 
