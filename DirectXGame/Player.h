@@ -3,6 +3,7 @@
 #include <Input.h>
 #include "Affine.h"
 #include "MathUtilityForText.h"
+#include "PlayerBullet.h"
 
 #pragma once
 class Player {
@@ -16,6 +17,7 @@ class Player {
 
 		void Draw(ViewProjection& viewprojection);
 
+		void Attack();
 
 	private:
 
@@ -29,4 +31,5 @@ class Player {
 
 		WorldTransform* worldTransformBlock = nullptr;
 		
+		PlayerBullet* bullet_ = nullptr;
 };

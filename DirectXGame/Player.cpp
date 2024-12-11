@@ -17,6 +17,10 @@ void Player::Intialize(Model* model, uint32_t textureHandle){
 
 void Player::Draw(ViewProjection& viewProjection){
 	model_->Draw(worldTransform_,viewProjection,textureHandle_);
+
+	if (bullet_){
+		bullet_->Draw(viewProjection);
+	}
 }
 
 void Player::Update(){
@@ -55,4 +59,27 @@ void Player::Update(){
 	worldTransform_.translation_.x  = min(worldTransform_.translation_.x, +kMoveLimitx);
 	worldTransform_.translation_.y  = max(worldTransform_.translation_.y, -kMoveLimity);
 	worldTransform_.translation_.y= min(worldTransform_.translation_.y, +kMoveLimity);
+
+	const float kRotSpeed = 0.02f;
+	if (input_->PushKey(DIK_A)) {
+		worldTransform_.rotation_.y -= kRotSpeed;
+	}
+	else if(input_->PushKey(DIK_D)){
+		worldTransform_.rotation_.y -= kRotSpeed;
+	}
+
+	Attack();
+
+	if (bullet_) {
+		bullet_->Update();
+	}
 }
+
+void Player::Attack(){
+	if (input_->PushKey(DIK_RETURN)) {
+		PlayerBullet* newBullet = new PlayerBullet();
+		newBullet->Intialize(model_,worldTransform_.translation_);
+
+		bullet_ = newBullet;
+	}
+};
