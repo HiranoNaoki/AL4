@@ -1,6 +1,7 @@
 #include "Enemy.h"
 #include <cassert>
 #include <MathUtilityForText.h>
+#include <imgui.h>
 
 void Enemy::Initialize(Model* model,uint32_t textureHandle){
 	
@@ -32,6 +33,32 @@ void Enemy::Update(){
 
 	worldTransform_.TransferMatrix();
 
+	Vector3 Amove = {0.2f,0.0f,0.0f};
+	Vector3 Lmove = {0.2f,0.0f,0.0f};
+
+	switch (phase_) {
+		case Phase::Approach:
+			default:
+				worldTransform_.translation_ += Amove;
+				if (worldTransform_.translation_.x >15.0f) {
+					phase_ = Phase::Leave;
+				}
+				break;
+
+		case Phase::Leave:
+
+			worldTransform_.translation_ -= Lmove;
+				if (worldTransform_.translation_.x <-15.0f) {
+					phase_ = Phase::Approach;
+				}
+			break;
+	}
+
+	ImGui::Begin("Player");
+
+	//ImGui::Text("Current Phase: %s" , phaseName);
+
+	ImGui::End();
 
 	/*const float kMoveLimitX = 34;
 	const float kMoveLimitY = 18;
@@ -42,7 +69,7 @@ void Enemy::Update(){
 		worldTransform_.translation_.y = max(worldTransform_.translation_.y,-kMoveLimitY);
 		worldTransform_.translation_.y = min(worldTransform_.translation_.y,-kMoveLimitY);*/
 
-		worldTransform_.TransferMatrix();
+		//worldTransform_.TransferMatrix();
 }
 
 
