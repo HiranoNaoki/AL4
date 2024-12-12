@@ -17,9 +17,25 @@ void Enemy::Initialize(Model* model,uint32_t textureHandle){
 
 void Enemy::Draw(ViewProjection& viewProjection){
 	model_->Draw(worldTransform_,viewProjection,textureHandle_);
+
+	for (Enemybullet* bullet : bullets_) {
+		bullet->Draw(viewProjection);
+	}
 }
 
 void Enemy::Update(){
+
+	bullets_.remove_if([](Enemybullet* bullet) {
+		if (bullet->IsDead()) {
+			delete bullet;
+			return true;
+		}
+		return false;
+
+	});
+
+
+
 	worldTransform_.TransferMatrix();
 	Vector3 move = {0,0,0};
 
@@ -32,6 +48,11 @@ void Enemy::Update(){
 	worldTransform_.matWorld_ = MakeAffineMatrix(worldTransform_.scale_,worldTransform_.rotation_,worldTransform_.translation_);
 
 	worldTransform_.TransferMatrix();
+
+	Approach();
+	for (Enemybullet* bullet : bullets_) {
+		bullet->Update();
+	}
 
 	Vector3 Amove = {0.2f,0.0f,0.0f};
 	Vector3 Lmove = {0.2f,0.0f,0.0f};
@@ -70,6 +91,33 @@ void Enemy::Update(){
 		worldTransform_.translation_.y = min(worldTransform_.translation_.y,-kMoveLimitY);*/
 
 		//worldTransform_.TransferMatrix();
+}
+
+void Enemy::Fire() {
+	const float kBulletSpeed = 1.0f;
+	Vector3 velocity(0,0,kBulletSpeed);
+	velocity = TransformNormal(velocity,worldTransform_.matWorld_);
+
+	Enemybullet* newBullet = new Enemybullet();
+	newBullet->Intialize(model_,worldTransform_.translation_,velocity);
+
+	bullets_.push_back(newBullet);
+}
+
+Enemy::~Enemy() {
+	for (Enemybullet* bullet : bullets_) {
+		delete bullet;
+	}
+}
+
+void Enemy::Approach() {
+	fireTimer_++;
+
+	if (fireTimer_ == kFiretime) {
+		Fire();
+
+		fireTimer_=0;
+	}
 }
 
 
