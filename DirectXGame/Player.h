@@ -22,6 +22,8 @@ class Player {
 
 		~Player();
 
+
+		Vector3 GetWorldPosition();
 	private:
 
 		WorldTransform worldTransform_;
@@ -37,4 +39,6 @@ class Player {
 		
 
 		std::list<PlayerBullet*> bullets_;
+
+		
 };

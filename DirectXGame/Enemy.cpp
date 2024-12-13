@@ -2,6 +2,7 @@
 #include <cassert>
 #include <MathUtilityForText.h>
 #include <imgui.h>
+#include "Player.h"
 
 void Enemy::Initialize(Model* model,uint32_t textureHandle){
 	
@@ -39,7 +40,7 @@ void Enemy::Update(){
 	worldTransform_.TransferMatrix();
 	Vector3 move = {0,0,0};
 
-	const float kCharacterSpeed = 0.02f;
+	const float kCharacterSpeed = -0.2f;
 
 	move.z-= kCharacterSpeed;
 
@@ -94,9 +95,19 @@ void Enemy::Update(){
 }
 
 void Enemy::Fire() {
-	const float kBulletSpeed = 1.0f;
+	const float kBulletSpeed = -1.0f;
 	Vector3 velocity(0,0,kBulletSpeed);
 	velocity = TransformNormal(velocity,worldTransform_.matWorld_);
+
+	Vector3 playerPos = player_->GetWorldPosition();
+
+	Vector3 enemyPos = Enemy::GetWorldPosition();
+
+	Vector3 direction = enemyPos - playerPos;
+
+	Vector3 normalizedDirection = Normalize(direction);
+	
+	velocity = normalizedDirection * kBulletSpeed;
 
 	Enemybullet* newBullet = new Enemybullet();
 	newBullet->Intialize(model_,worldTransform_.translation_,velocity);
@@ -118,6 +129,16 @@ void Enemy::Approach() {
 
 		fireTimer_=0;
 	}
+}
+
+Vector3 Enemy::GetWorldPosition() {
+	Vector3 worldpos;
+
+	worldpos.x = worldTransform_.translation_.x;
+	worldpos.y = worldTransform_.translation_.y;
+	worldpos.z = worldTransform_.translation_.z;
+
+	return worldpos;
 }
 
 

@@ -4,7 +4,7 @@
 
 class Enemybullet {
 public:
-	void Intialize(Model* model, const Vector3& posision, const Vector3& velocity);
+	void Intialize(Model* model, const Vector3& position, const Vector3& velocity);
 
 	void Update();
 

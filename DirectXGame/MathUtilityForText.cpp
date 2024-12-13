@@ -91,3 +91,23 @@ Vector3 TransformNormal(const Vector3& v, const Matrix4x4& m) {
 
 	return result;
 }
+
+float Dot(const Vector3& v, const Vector3& v2) {
+	float ans;
+	ans = v.x*v2.x+v.y*v2.y+v.z*v2.z;
+	return ans;
+}
+
+float Length(const Vector3& v) {
+	float ans;
+	ans = sqrtf(Dot(v,v));
+	return ans;
+}
+
+Vector3 Normalize(const Vector3& v) {
+	float len = Length(v);
+	if (len == 0) {
+		return Vector3(0,0,0);
+	}
+	return Vector3(v.x/len,v.y/len,v.z/len);
+}

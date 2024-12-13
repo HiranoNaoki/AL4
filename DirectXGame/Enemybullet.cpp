@@ -3,7 +3,7 @@
 #include<assert.h>
 #include "TextureManager.h"
 
-void Enemybullet::Intialize(Model* model, const Vector3& posision,const Vector3& veloicity) {
+void Enemybullet::Intialize(Model* model, const Vector3& position,const Vector3& veloicity) {
 
 	assert(model);
 
@@ -12,7 +12,7 @@ void Enemybullet::Intialize(Model* model, const Vector3& posision,const Vector3&
 
 
 	worldtransform_.Initialize();
-	worldtransform_.translation_ = posision;
+	worldtransform_.translation_ = position;
 
 	velocity_ = veloicity;
 
