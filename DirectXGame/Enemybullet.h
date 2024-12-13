@@ -13,6 +13,10 @@ public:
 	bool IsDead()const {return isDead_;}
 
 	static const int32_t kLifeTime = 60*5;
+
+	void OnCollision();
+
+	Vector3 GetWorldPosition();
 private:
 
 

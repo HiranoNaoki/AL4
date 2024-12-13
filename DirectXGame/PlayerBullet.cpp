@@ -7,7 +7,7 @@ void PlayerBullet::Intialize(Model* model, const Vector3& position, const Vector
 
 	model_ = model;
 
-	textureHandle_ = TextureManager::Load("./Resources/black.png");
+	textureHandle_ = TextureManager::Load("./Resources/White1x1.png");
 	worldtransform_.Initialize();
 
 	worldtransform_.translation_ = position;
@@ -29,3 +29,16 @@ void PlayerBullet::Draw(const ViewProjection& viewProjection){
 	model_->Draw(worldtransform_, viewProjection, textureHandle_);
 
 };
+
+Vector3 PlayerBullet::GetWorldPosition() {
+	Vector3 worldPos;
+
+	worldPos.x = worldtransform_.translation_.x;
+	worldPos.y = worldtransform_.translation_.y;
+	worldPos.z = worldtransform_.translation_.z;
+	return worldPos;
+}
+
+
+
+void PlayerBullet::OnCollision(){isDead_ = true;}

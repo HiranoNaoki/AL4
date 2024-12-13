@@ -29,6 +29,9 @@ public:
 
 	Vector3 GetWorldPosition();
 
+	void OnCollision();
+
+	const std::list<Enemybullet*>& GetBullets() const {return bullets_;}
 	private:
 		WorldTransform worldTransform_;
 

@@ -51,6 +51,7 @@ public: // メンバ関数
 		
 	ViewProjection viewProjection_;
 
+	void CheckAllColisions();
 
 private: // メンバ変数
 	DirectXCommon* dxCommon_ = nullptr;

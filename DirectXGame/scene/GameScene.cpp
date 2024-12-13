@@ -49,6 +49,8 @@ void GameScene::Update() {
 
 	debugCamera_->Update();
 
+	CheckAllColisions();
+
 #ifdef _DEBUG
 	if (input_->TriggerKey(DIK_SPACE)) {
 
@@ -119,4 +121,59 @@ void GameScene::Draw() {
 
 
 	
+}
+
+void GameScene::CheckAllColisions() {
+	Vector3 posA,posB;
+
+	const std::list<PlayerBullet*>& playerBullets = player_->GetBullets();
+
+	const std::list<Enemybullet*>& enemyBullets = enemy_->GetBullets();
+	#pragma region 自キャラと敵弾の当たり判定
+
+	posA = player_->GetWorldPosition();
+	for (Enemybullet* bullet : enemyBullets) {
+		
+		posB = bullet->GetWorldPosition();
+		
+		if (((posB.x - posA.x) * (posB.x - posA.x) + (posB.y - posA.y) * (posB.y - posA.y) + (posB.z - posA.z) * (posB.z - posA.z) <= (1.0f + 1.0f) * (1.0f + 1.0f))) {
+			
+			player_->OnCollision();
+			
+			bullet->OnCollision();
+		}
+	}
+#pragma endregion
+#pragma region 自弾と敵キャラの当たり判定
+	
+	posB = enemy_->GetWorldPosition();
+	for (PlayerBullet* bullet : playerBullets) {
+		
+		posA = bullet->GetWorldPosition();
+		
+		if (((posB.x - posA.x) * (posB.x - posA.x) + (posB.y - posA.y) * (posB.y - posA.y) + (posB.z - posA.z) * (posB.z - posA.z) <= (1.0f + 1.0f) * (1.0f + 1.0f))) {
+			
+			enemy_->OnCollision();
+			
+			bullet->OnCollision();
+		}
+	}
+#pragma endregion
+#pragma region 自弾と敵弾の当たり判定
+	for (PlayerBullet* bulletP : playerBullets) {
+		
+		posA = bulletP->GetWorldPosition();
+		for (Enemybullet* bulletE : enemyBullets) {
+			
+			posB = bulletE->GetWorldPosition();
+			
+			if (((posB.x - posA.x) * (posB.x - posA.x) + (posB.y - posA.y) * (posB.y - posA.y) + (posB.z - posA.z) * (posB.z - posA.z) <= (1.0f + 1.0f) * (1.0f + 1.0f))) {
+				
+				bulletP->OnCollision();
+				
+				bulletE->OnCollision();
+			}
+		}
+	}
+#pragma endregion
 }

@@ -30,3 +30,16 @@ void Enemybullet::Update(){
 	worldtransform_.translation_ += velocity_;
 	worldtransform_.UpdateMatrix();
 }
+
+Vector3 Enemybullet::GetWorldPosition() {
+	Vector3 worldPos;
+
+	worldPos.x = worldtransform_.translation_.x;
+	worldPos.y = worldtransform_.translation_.y;
+	worldPos.z = worldtransform_.translation_.z;
+	return worldPos;
+}
+
+
+
+void Enemybullet::OnCollision(){isDead_ = true;}

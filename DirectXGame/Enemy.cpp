@@ -40,7 +40,7 @@ void Enemy::Update(){
 	worldTransform_.TransferMatrix();
 	Vector3 move = {0,0,0};
 
-	const float kCharacterSpeed = -0.2f;
+	const float kCharacterSpeed = -0.05f;
 
 	move.z-= kCharacterSpeed;
 
@@ -141,4 +141,4 @@ Vector3 Enemy::GetWorldPosition() {
 	return worldpos;
 }
 
-
+void Enemy::OnCollision(){};
