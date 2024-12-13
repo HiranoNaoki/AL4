@@ -10,6 +10,7 @@ GameScene::~GameScene() {
 	delete player_;
 	delete debugCamera_;
 	delete enemy_;
+	delete modelSkydome_;
 }
 
 void GameScene::Initialize() {
@@ -39,6 +40,11 @@ void GameScene::Initialize() {
 	AxisIndicator::GetInstance()->SetTargetViewProjection(&viewProjection_);
 
 	enemy_->SetPlayer(player_);
+
+	modelSkydome_ = Model::CreateFromOBJ("sphere",true);
+	dome_ = new dome();
+
+	dome_->Initialize(modelSkydome_,&viewProjection_);
 
 }
 
@@ -99,6 +105,9 @@ void GameScene::Draw() {
 	/// ここに3Dオブジェクトの描画処理を追加できる
 	/// </summary>
 	/// 
+	
+	dome_->Draw();
+	
 	player_->Draw(viewProjection_);
 
 	enemy_->Draw(viewProjection_); 

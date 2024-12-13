@@ -1,7 +1,7 @@
 #include "Enemy.h"
 #include <cassert>
 #include <MathUtilityForText.h>
-#include <imgui.h>
+//#include <imgui.h>
 #include "Player.h"
 
 void Enemy::Initialize(Model* model,uint32_t textureHandle){
@@ -76,11 +76,11 @@ void Enemy::Update(){
 			break;
 	}
 
-	ImGui::Begin("Player");
+	
 
 	//ImGui::Text("Current Phase: %s" , phaseName);
 
-	ImGui::End();
+	
 
 	/*const float kMoveLimitX = 34;
 	const float kMoveLimitY = 18;

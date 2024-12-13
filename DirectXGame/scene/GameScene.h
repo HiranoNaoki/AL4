@@ -11,6 +11,7 @@
 #include "DebugCamera.h"
 #include "MathUtilityForText.h"
 #include <Enemy.h>
+#include "dome.h"
 
 /// <summary>
 /// ゲームシーン
@@ -47,6 +48,8 @@ public: // メンバ関数
 
 		Model* modelEnemy_ = nullptr;
 
+		Model* modelSkydome_ = nullptr;
+
 		WorldTransform worldTransform_;
 		
 	ViewProjection viewProjection_;
@@ -68,6 +71,8 @@ private: // メンバ変数
 	Player* player_ = nullptr;
 
 	Enemy* enemy_ = nullptr;
+
+	dome* dome_ = nullptr;
 
 	bool isDebugCameraActive_ = false;
 
