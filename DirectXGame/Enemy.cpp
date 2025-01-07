@@ -14,6 +14,8 @@ void Enemy::Initialize(Model* model,uint32_t textureHandle){
 
 	worldTransform_.Initialize();
 
+	
+
 }
 
 void Enemy::Draw(ViewProjection& viewProjection){
@@ -40,10 +42,13 @@ void Enemy::Update(){
 	worldTransform_.TransferMatrix();
 	Vector3 move = {0,0,0};
 
-	const float kCharacterSpeed = -0.05f;
+	 float kCharacterSpeed = -0.05f;
 
-	move.z-= kCharacterSpeed;
+	if(worldTransform_.translation_.z>12){
+	    kCharacterSpeed = 0.0f;
+	}
 
+		move.z-= kCharacterSpeed;
 	worldTransform_.translation_ += move;
 
 	worldTransform_.matWorld_ = MakeAffineMatrix(worldTransform_.scale_,worldTransform_.rotation_,worldTransform_.translation_);
@@ -55,8 +60,8 @@ void Enemy::Update(){
 		bullet->Update();
 	}
 
-	Vector3 Amove = {0.2f,0.0f,0.0f};
-	Vector3 Lmove = {0.2f,0.0f,0.0f};
+	Vector3 Amove = {0.5f,0.5f,0.0f};
+	Vector3 Lmove = {0.5f,0.5f,0.0f};
 
 	switch (phase_) {
 		case Phase::Approach:
@@ -64,6 +69,7 @@ void Enemy::Update(){
 				worldTransform_.translation_ += Amove;
 				if (worldTransform_.translation_.x >15.0f) {
 					phase_ = Phase::Leave;
+					
 				}
 				break;
 

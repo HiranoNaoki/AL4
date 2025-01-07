@@ -37,7 +37,7 @@ void Player::Update(){
 
 	Vector3 move = {0,0,0};
 
-	const float kCharacterSpeed = 2.0f;
+	const float kCharacterSpeed = 0.8f;
 
 	if (input_->PushKey(DIK_LEFT)) {
 		move.x -= kCharacterSpeed;
@@ -84,7 +84,7 @@ void Player::Update(){
 }
 
 void Player::Attack(){
-	if (input_->PushKey(DIK_RETURN)) {
+	if (input_->PushKey(DIK_SPACE)) {
 
 		const float kBulletSpeed = 1.0f;
 		Vector3 velocity(0,0,kBulletSpeed);

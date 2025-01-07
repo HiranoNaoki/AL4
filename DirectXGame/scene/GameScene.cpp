@@ -19,9 +19,10 @@ void GameScene::Initialize() {
 	input_ = Input::GetInstance();
 	audio_ = Audio::GetInstance();
 
-	textureHandle_ = TextureManager::Load("./Resources/mario.png");
+	textureHandle_ = TextureManager::Load("./Resources/white1x1.png");
 	textureHandleEne_ = TextureManager::Load("./Resources/black.png");
 
+	
 
 	model_ = Model::Create();
 	modelEnemy_ = Model::Create();
@@ -41,11 +42,12 @@ void GameScene::Initialize() {
 
 	enemy_->SetPlayer(player_);
 
-	modelSkydome_ = Model::CreateFromOBJ("sphere",true);
+	modelSkydome_ = Model::CreateFromOBJ("sky",true);
 	dome_ = new dome();
 
 	dome_->Initialize(modelSkydome_,&viewProjection_);
 
+	enemyHp = 500;
 }
 
 void GameScene::Update() {
@@ -57,8 +59,12 @@ void GameScene::Update() {
 
 	CheckAllColisions();
 
+	if (enemyHp <= 0) {
+		finished_ = true;
+	}
+
 #ifdef _DEBUG
-	if (input_->TriggerKey(DIK_SPACE)) {
+	if (input_->TriggerKey(DIK_0)) {
 
 	}isDebugCameraActive_ =true;
 #endif
@@ -165,6 +171,7 @@ void GameScene::CheckAllColisions() {
 			enemy_->OnCollision();
 			
 			bullet->OnCollision();
+			enemyHp-=10;
 		}
 	}
 #pragma endregion
@@ -186,3 +193,4 @@ void GameScene::CheckAllColisions() {
 	}
 #pragma endregion
 }
+

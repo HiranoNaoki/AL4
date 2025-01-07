@@ -56,6 +56,10 @@ public: // メンバ関数
 
 	void CheckAllColisions();
 
+	bool finished_ = false;
+
+	bool IsFinished() const {return finished_;}
+
 private: // メンバ変数
 	DirectXCommon* dxCommon_ = nullptr;
 	Input* input_ = nullptr;
@@ -65,7 +69,7 @@ private: // メンバ変数
 
 	uint32_t textureHandleEne_ = 0;
 
-
+	float enemyHp =500;
 
 
 	Player* player_ = nullptr;
